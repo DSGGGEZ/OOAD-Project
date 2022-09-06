@@ -1,0 +1,82 @@
+CREATE TABLE member (
+  idmember INTEGER   NOT NULL ,
+  mid INTEGER    ,
+  mpassword INTEGER    ,
+  mname INTEGER    ,
+  address INTEGER    ,
+  balance INTEGER      ,
+PRIMARY KEY(idmember));
+
+
+
+
+CREATE TABLE platform (
+  idplatform INTEGER   NOT NULL ,
+  platformname VARCHAR(30)      ,
+PRIMARY KEY(idplatform));
+
+
+
+
+CREATE TABLE gametype (
+  idgametype INTEGER   NOT NULL ,
+  gametype VARCHAR(30)      ,
+PRIMARY KEY(idgametype));
+
+
+
+
+CREATE TABLE devcompany (
+  iddevcompany INTEGER   NOT NULL ,
+  devcompanyname VARCHAR(30)   NOT NULL   ,
+PRIMARY KEY(iddevcompany));
+
+
+
+
+CREATE TABLE game (
+  idgame INTEGER   NOT NULL ,
+  gid VARCHAR(8)   NOT NULL ,
+  idgametype INTEGER   NOT NULL ,
+  idPlatform INTEGER   NOT NULL ,
+  idDevCompany INTEGER   NOT NULL ,
+  gamename VARCHAR(50)      ,
+PRIMARY KEY(idgame, gid)      ,
+  FOREIGN KEY(idDevCompany)
+    REFERENCES devcompany(idDevCompany),
+  FOREIGN KEY(idgametype)
+    REFERENCES gametype(idgametype),
+  FOREIGN KEY(idPlatform)
+    REFERENCES platform(idPlatform));
+
+
+CREATE INDEX Game_FKIndex1 ON game (idDevCompany);
+CREATE INDEX Game_FKIndex3 ON game (idPlatform);
+CREATE INDEX game_FKIndex3 ON game (idgametype);
+
+
+CREATE INDEX IFK_Rel_01 ON game (idDevCompany);
+CREATE INDEX IFK_Rel_02 ON game (idgametype);
+CREATE INDEX IFK_Rel_03 ON game (idPlatform);
+
+
+CREATE TABLE member_has_Game (
+  idmember INTEGER   NOT NULL ,
+  GID VARCHAR(8)   NOT NULL ,
+  idGame INTEGER   NOT NULL   ,
+PRIMARY KEY(idmember, GID, idGame)    ,
+  FOREIGN KEY(idmember)
+    REFERENCES member(idmember),
+  FOREIGN KEY(idGame, GID)
+    REFERENCES game(idGame, GID));
+
+
+CREATE INDEX member_has_Game_FKIndex1 ON member_has_Game (idmember);
+CREATE INDEX member_has_Game_FKIndex2 ON member_has_Game (idGame, GID);
+
+
+CREATE INDEX IFK_Rel_04 ON member_has_Game (idmember);
+CREATE INDEX IFK_Rel_05 ON member_has_Game (idGame, GID);
+
+
+
