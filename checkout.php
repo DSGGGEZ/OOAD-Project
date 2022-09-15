@@ -38,10 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $statement3->bind_param('is',$stock,$pid);
     $result3 = $statement3->execute();
 
-    $sql4 = "INSERT INTO reciept(pid , cid, bought_date, total) VALUES (?,?,?,?)";
+    $sql4 = "INSERT INTO order(pid , cid, bought_date, total) VALUES (?,?,?,?)";
     $statement4 = $conn->prepare($sql4);
     $statement4->bind_param('ssss',$pid,$cid,$bought_date,$total);
     $result4 = $statement4->execute();
+
+    $sql5 = "INSERT INTO reciept(pid , cid, bought_date, total) VALUES (?,?,?,?)";
+    $statement5 = $conn->prepare($sql4);
+    $statement5->bind_param('ssss',$pid,$cid,$bought_date,$total);
+    $result5 = $statement5->execute();
 
     // Execute sql and check for failure
     if (!$result4) {

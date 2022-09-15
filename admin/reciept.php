@@ -13,10 +13,10 @@ require('../dbconnect.php');
 <?php
 $cusid = isset($_GET['cusid']) ? $_GET['cusid'] : "";
 if ($cusid != "") {
-    $sql = "SELECT * FROM reciept LEFT JOIN product ON reciept.pid=product.pid LEFT JOIN customer ON reciept.cid=customer.cid WHERE customer.cid LIKE '%$cusid%' ORDER BY rid DESC";
+    $sql = "SELECT * FROM order LEFT JOIN product ON order.pid=product.pid LEFT JOIN customer ON order.cid=customer.cid WHERE customer.cid LIKE '%$cusid%' ORDER BY rid DESC";
 }
 else {
-    $sql = "SELECT * FROM reciept LEFT JOIN product ON reciept.pid=product.pid LEFT JOIN customer ON reciept.cid=customer.cid ORDER BY rid DESC";
+    $sql = "SELECT * FROM order LEFT JOIN product ON order.pid=product.pid LEFT JOIN customer ON order.cid=customer.cid ORDER BY rid DESC";
 }
 $results = $conn->query($sql);
 ?>
