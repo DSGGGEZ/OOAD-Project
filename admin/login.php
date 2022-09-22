@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $hashedPassword = md5($password);
 
-    $expectedPassword = md5('14022514'); // TODO: get from database
+    $expectedPassword = md5('14022514');
 
     if ($hashedPassword == $expectedPassword) {
         // Save in the session
